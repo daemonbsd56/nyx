@@ -4,7 +4,7 @@ A spin off Linux distro based on LFS
 ## How to
 This is the guide to build Nyx from scratch. It's following the direectives of the Svn LFS version of Linuxfromscratch
 .org handbook. It' simple, clear, comprehensive, fully written in bash. It's meant for those who are already familiar 
-with Linux, source based distros. As written in the ALFS project, it's strongly advised to have built manulally yourself a couple
+with Linux, source based distros. As written in the ALFS project, it's strongly advised to have built manually yourself a couple
 of LFS installations. 
 
 * Clone these 3 needed repositories.
