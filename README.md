@@ -99,6 +99,10 @@ This is guide to build Nyx from scratch.
 		
 #### Re-chroot into Nyx system to configure
 
+* Chroot final Nyx system by running the 'chroot' script.
+
+		./chroot /mnt/lfs
+
 * Make system bootable, install kernel.
 
 		# tar -xvf linux-<version>.tar.xz -C /usr/src
