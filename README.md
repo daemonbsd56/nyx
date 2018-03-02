@@ -5,7 +5,7 @@ A spin off Linux distro based on LFS.
 This is guide to build Nyx from scratch.
 
 
-* Clone this 3 repository needed.
+* Clone this 3 needed repositories.
 
 		git clone https://github.com/emmett1/scratchpkg # package manager will used with Nyx
 		git clone https://github.com/emmett1/ports      # ports (package's build scripts)
@@ -15,7 +15,7 @@ This is guide to build Nyx from scratch.
 
 #### Prepare and mount partitions
 
-* Create partion using cfdisk or etc. (change `X` to your partition number)
+* Create partion using cfdisk or etc. (change `X` to your partition number).
 
 		$ sudo cfdisk
 		$ sudo mkfs.ext4 -L Nyx /dev/sdaX
@@ -67,7 +67,7 @@ This is guide to build Nyx from scratch.
 
 		# ./chroot-nyx
 		
-*Note: Now you ere in chroot environmet, any command you run is happen in final Nyx system*
+*Note: Now you are in chroot environmet, any command you run is happen in final Nyx system*
 
 * Install package manager dirty way to install base system. Later scratchpkg get installed again and will tracked.
 
@@ -84,7 +84,7 @@ This is guide to build Nyx from scratch.
 		# cp -Rv nyx/sources/* /var/cache/scratchpkg/sources
 		# cp -Rv ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
 
-* Installing base system.
+* Installing base system. (baseinstall script is come with scratchpkg)
 	
 		# baseinstall
 
@@ -113,7 +113,7 @@ This is guide to build Nyx from scratch.
 		# cp arch/x86/boot/bzImage /boot/vmlinuz-<kernel version>
 		# cp System.map /boot
 
-* Configure grub
+* Configure grub.
 
 		# grub-install /dev/sda
 		# grub-mkconfig -o /boot/grub/grub.cfg
@@ -127,7 +127,7 @@ Or you can use this example grub.cfg:
 			linux /boot/vmlinuz-4.15 root=/dev/sda2 ro quiet
 			}
 
-* Configure system (change `emmett` to your user)
+* Configure system (change `emmett` to your user).
 
 		# vim /etc/fstab
 		# passwd
@@ -139,4 +139,4 @@ Or you can use this example grub.cfg:
 		
 *Note: At this stage you can reboot to test you Nyx or you can install needed package like dhcpcd for networking, Xorg for gui and etc.*
 
-*Note: In the temporary nyx directory copied earlier theres a directory 'listinstal' which have list package to install dependecy order sorted. You can install it by using `listinstall` script come with scratchpkg. Example: 'listinstall /nyx/xorg'*
+*Note: In the temporary nyx directory copied earlier theres a directory 'listinstall' which have list package to install dependecy order sorted. You can install it by using `listinstall` script which is come with scratchpkg. Example: 'listinstall /nyx/listinstall/xorg'*
