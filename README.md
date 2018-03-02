@@ -1,31 +1,36 @@
 # Nyx GNU/Linux
-A spin off Linux distro based on LFS.
+A spin off Linux distro based on LFS
 
 ## How to
-This is guide to build Nyx from scratch.
+This is the guide to build Nyx from scratch. It's following the direectives of the Svn LFS version of Linuxfromscratch
+.org handbook. It' simple, clear, comprehensive, fully written in bash. It's meant for those who are already familiar 
+with Linux, source based distros. As written in the ALFS project, it's strongly advised to have built manulally yourself a couple
+of LFS installations. 
 
+* Clone these 3 needed repositories.
 
-* Clone this 3 needed repositories.
-
-		git clone https://github.com/emmett1/scratchpkg # package manager will used with Nyx
+		git clone https://github.com/emmett1/scratchpkg # package manager which will be used with Nyx
 		git clone https://github.com/emmett1/ports      # ports (package's build scripts)
 		git clone https://github.com/emmett1/nyx        # this repo, toolchain scripts and etc
 
-*Note: build toolchain must build using unprivilege users*
+*Note: The toolchain must be built as an unprivileged user just like stated in the LFS book. Make sure that this user
+* has also the sudo rights*
 
-#### Prepare and mount partitions
+#### Prepare and mount partition(s)
 
-* Create partion using cfdisk or etc. (change `X` to your partition number).
+* Create a partition using cfdisk or etc. (change `X` to your partition number).
 
 		$ sudo cfdisk
-		$ sudo mkfs.ext4 -L Nyx /dev/sdaX
+		$ sudo mkfs.ext4 -L Nyx /dev/sdaX    # -L for labeling the partition.
 		
 * Mount partition.
 
 		$ sudo mkdir /mnt/lfs
 		$ sudo mount /dev/sdaX /mnt/lfs
+		
+ 		
 
-* Prepare temporary toolchain directory (change `emmett` to your user).
+* Prepare the temporary toolchain directory (change `emmett` to your user name! ).
 
 		$ sudo mkdir -pv /mnt/lfs/tools
 		$ sudo chown -Rv emmett:emmett /mnt/lfs
@@ -33,73 +38,75 @@ This is guide to build Nyx from scratch.
 
 #### Build the toolchain
 
-* Enter toolchainscripts directory.
+* Enter the toolchainscripts directory.
 
 		$ pushd nyx/toolchainscripts
 		
-* Fetch needed sources by running the script.
+* Fetch needed sources by running the script. 
 
 		$ ./fetch-sources
 		
-* Start build toolchain ny running the script.
+  - it will download the latest development set of the SVN/LFS book		
+* Start building the toolchain by running the script.
 
 		$ ./strap
 		$ popd
-
-* Change toolchains permision to root.
+    - Nano (text-editor) and wget (fetching tool) are installed during the toolchain and will be a valuable aid during 
+    the next step in casu the building of the proper final NYX. 
+* Change toolchain's permission to root.
 
 		$ sudo chown -Rv 0:0 /mnt/lfs
 
-#### Prepare needed files for build final Nyx system
+#### Prepare needed files for building the final Nyx system
 
 * Create temporary directory in Nyx system to store needed files later after entering chroot.
 
 		$ sudo mkdir /mnt/lfs/nyx
 		$ sudo cp -Rv scratchpkg ports nyx/{sources,listinstall} /mnt/lfs/nyx
 
-#### Build final Nyx system
+#### Building the final Nyx system
 
-* Change to root user (the rest of this command need to run as root).
+* Change to root user (the rest of these commands must be run as root).
 
 		# sudo su
 
-* Make needed directories inside target nyx install then chroot (script).
+* Make the necessary directories inside the nyx installation and then chroot in it(executed by a script).
 
 		# ./chroot-nyx
 		
-*Note: Now you are in chroot environmet, any command you run is happen in final Nyx system*
+*Note: Now you are in the chroot environment, any command you run is executed the final, definitve Nyx system*
 
-* Install package manager dirty way to install base system. Later scratchpkg get installed again and will tracked.
+* Install the package manager the "dirty way" in order to install the base system. Later on, scratchpkg will be installed again and will track all the installed packages. 
 
 		# pushd nyx/scratchpkg
 		# ./INSTALL.sh
 		# popd
 
-* Configure scratchpkg configuration suit to your need.
+* Configure scratchpkg.conf (configuration file) in accordance to your needs.
 
 		# nano /etc/scratchpkg.conf
 
-* Copy sources and ports into right places (needed files prepared earlier).
+* Copy sources and ports into right places (those are the files you prepared earlier).
 
 		# cp -Rv nyx/sources/* /var/cache/scratchpkg/sources
 		# cp -Rv ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
 
-* Installing base system. (baseinstall script is come with scratchpkg)
+* Installing base system. (a baseinstall script is provided by scratchpkg)
 	
 		# baseinstall
 
-* Install an init to system (rc-init or lfs-bootscripts). Currently have rc-init (bsd-init style) and lfs-bootscript (init provide by LFS). Run `scratch -s rcinit` to search availble daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
+* Install an init to system (rc-init or lfs-bootscripts). Currently rc-init (bsd-init style) and lfs-bootscript (init provided by LFS). Run `scratch -s rcinit` to search availble daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
 
 		# scratch -i -p rc-init
 
-* Exit chroot and remove temporary toolchain. (remove temporary toolchain consider mandatory because next chroot script will depends on it).
+* Exit chroot and remove temporary toolchain. (removing the temporary toolchain is considered mandatory because next chroot script will depend on it. You may naturally still tar it into a file and copy it somewhere else).
 
 		# exit
 		# rm -fr /mnt/lfs/tools
 		
 #### Re-chroot into Nyx system to configure
 
-* Chroot final Nyx system by running the 'chroot' script.
+* Chroot in the final Nyx system by running the 'chroot' script.
 
 		./chroot /mnt/lfs
 
@@ -137,6 +144,6 @@ Or you can use this example grub.cfg:
 		# useradd -m -G users,wheel,video,audio -s /bin/bash emmett
 		# passwd emmett
 		
-*Note: At this stage you can reboot to test you Nyx or you can install needed package like dhcpcd for networking, Xorg for gui and etc.*
+*Note: At this stage you may reboot and  test your Nyx or you can continue and install needed packages like dhcpcd for networking, Xorg for gui and etc.*
 
-*Note: In the temporary nyx directory copied earlier theres a directory 'listinstall' which have list package to install dependecy order sorted. You can install it by using `listinstall` script which is come with scratchpkg. Example: 'listinstall /nyx/listinstall/xorg'*
+*Note: In the temporary nyx directory copied earlier, there is  a directory 'listinstall' which contains a  package list to install. This one is already sorted by dependency and is really handy. You can install it by using `listinstall` script which is provided by scratchpkg. Example: 'listinstall /nyx/listinstall/xorg'*
