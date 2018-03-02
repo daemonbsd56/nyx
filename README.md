@@ -135,4 +135,4 @@ Or you can use this example grub.cfg:
 		
 *Note: At this stage you can reboot to test you Nyx or you can install needed package like dhcpcd for networking, Xorg for gui and etc.*
 
-*Note: In the temporary nyx directory copied earlier theres a directory 'listinstal' which have list package to install dependecy order sorted. You can install it by using `listinstall` script come with scratchpkg. Example: 'listinstall /nyx/xorg'
+*Note: In the temporary nyx directory copied earlier theres a directory 'listinstal' which have list package to install dependecy order sorted. You can install it by using `listinstall` script come with scratchpkg. Example: 'listinstall /nyx/xorg'*
