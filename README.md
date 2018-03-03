@@ -57,6 +57,7 @@ of LFS installations.
 		$ sudo chown -Rv 0:0 /mnt/lfs
 		
 *Note: If you intend to keep temporary toolchain for use in future to build LFS/Nyx system, now is the right time to back it up. Later commands will alter the toolchain currently in place, rendering them useless for future builds.*
+
 *Note: Use this command to backup the toolchain: `cd /mnt/lfs && tar -cvJpf /lfs-toolchain.txz *` (backed up toolchain in your host root (/) directory*
 
 #### Prepare needed files for building the final Nyx system
