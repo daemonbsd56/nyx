@@ -2,8 +2,7 @@
 A spin off Linux distro based on LFS
 
 ## How to
-This is the guide to build Nyx from scratch. It's following the directives of the Svn LFS version of Linuxfromscratch
-.org handbook. It' simple, clear, comprehensive, fully written in bash. It's meant for those who are already familiar 
+This is the guide to build Nyx from scratch. It's following the directives of the Svn LFS version of linuxfromscratch.org handbook. It' simple, clear, comprehensive, fully written in bash. It's meant for those who are already familiar 
 with Linux and source based distros. As written in the ALFS project, it's strongly advised to have built manually yourself a couple
 of LFS installations. 
 
@@ -13,8 +12,7 @@ of LFS installations.
 		git clone https://github.com/emmett1/ports      # ports (package's build scripts)
 		git clone https://github.com/emmett1/nyx        # this repo, toolchain scripts and etc
 
-*Note: The toolchain must be built as an unprivileged user just like stated in the LFS book. Make sure that this user
-* has also the sudo rights*
+*Note: The toolchain must be built as an unprivileged user just like stated in the LFS book. Make sure that this user has also the sudo rights*
 
 #### Prepare and mount partition(s)
 
@@ -46,13 +44,14 @@ of LFS installations.
 
 		$ ./fetch-sources
 		
-  - it will download the latest development set of the SVN/LFS book		
+   - it will download the latest development set of the SVN/LFS book		
 * Start building the toolchain by running the script.
 
 		$ ./strap
 		$ popd
-    - Nano (text-editor) and wget (fetching tool) are installed during the toolchain and will be a valuable aid during 
-    the next step in casu the building of the proper final NYX. 
+   - Nano (text-editor) and wget (fetching tool) are installed during the toolchain and will be a valuable aid during 
+    the next step in case the building of the proper final Nyx.
+    
 * Change toolchain's permission to root.
 
 		$ sudo chown -Rv 0:0 /mnt/lfs
@@ -70,7 +69,7 @@ of LFS installations.
 
 		# sudo su
 
-* Make the necessary directories inside the nyx installation and then chroot in it(executed by a script).
+* Make the necessary directories inside the nyx installation and then chroot in it (executed by a script).
 
 		# ./chroot-nyx
 		
@@ -95,7 +94,7 @@ of LFS installations.
 	
 		# baseinstall
 
-* Install an init to system (rc-init or lfs-bootscripts). Currently rc-init (bsd-init style) and lfs-bootscript (init provided by LFS). Run `scratch -s rcinit` to search availble daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
+* Install an init to system. Currently rc-init (bsd-init style) and lfs-bootscript (init provided by LFS) is available. Run `scratch -s rcinit` to search available daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
 
 		# scratch -i -p rc-init
 
@@ -110,7 +109,7 @@ of LFS installations.
 
 		./chroot /mnt/lfs
 
-* Make system bootable, install kernel.
+* Make system bootable, install kernel. You can get the kernel at kernel.org or use the one that fetched earlier by `fetch-sources` script. (its recommended to placed kernel sources in /usr/src directory)
 
 		# tar -xvf linux-<version>.tar.xz -C /usr/src
 		# cd /usr/src/linux-<version>
@@ -125,7 +124,7 @@ of LFS installations.
 		# grub-install /dev/sda
 		# grub-mkconfig -o /boot/grub/grub.cfg
 		
-Or you can use this example grub.cfg:
+  Or you can use this example grub.cfg:
 
 		set timeout=5
 
@@ -134,13 +133,14 @@ Or you can use this example grub.cfg:
 			linux /boot/vmlinuz-4.15 root=/dev/sda2 ro quiet
 			}
 
-* Configure system (change `emmett` to your user).
+* Configure system (change `emmett` to your user name and `Asia/Kuala_Lumpur` to your country).
 
 		# vim /etc/fstab
 		# passwd
 		# vim /etc/hostname
 		# vim /etc/hosts
 		# vim /etc/rc.conf
+		# ln -svf /usr/share/zoneinfo/Asia/Kuala_Lumpur
 		# useradd -m -G users,wheel,video,audio -s /bin/bash emmett
 		# passwd emmett
 		
