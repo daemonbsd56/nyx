@@ -55,6 +55,9 @@ of LFS installations.
 * Change toolchain's permission to root.
 
 		$ sudo chown -Rv 0:0 /mnt/lfs
+		
+*Note: If you intend to keep temporary toolchain for use in future to build LFS/Nyx system, now is the right time to back it up. Later commands will alter the toolchain currently in place, rendering them useless for future builds.*
+*Note: Use this command to backup the toolchain: `cd /mnt/lfs && tar -cvJpf /lfs-toolchain.txz *` (backed up toolchain in your host root (/) directory*
 
 #### Prepare needed files for building the final Nyx system
 
@@ -94,7 +97,7 @@ of LFS installations.
 	
 		# baseinstall
 
-* Install an init to system. Currently rc-init (bsd-init style) and lfs-bootscript (init provided by LFS) is available. Run `scratch -s rcinit` to search available daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
+* Install an init to system. Currently rc-init (bsd-init style) and lfs-bootscripts (init provided by LFS) is available. Run `scratch -s rcinit` to search available daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
 
 		# scratch -i -p rc-init
 
