@@ -71,7 +71,7 @@ of LFS installations.
 
 * Change to root user (the rest of these commands must be run as root).
 
-		# sudo su
+		$ sudo su
 
 * Make the necessary directories inside the nyx installation and then chroot in it (executed by a script).
 
