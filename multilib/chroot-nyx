@@ -30,15 +30,9 @@ ln -sv bash $NYX/bin/sh
 
 ln -sv /tools/lib/libgcc_s.so{,.1} $NYX/usr/lib
 ln -sv /tools/lib/libstdc++.{a,so{,.6}} $NYX/usr/lib
-ln -sf /tools/lib/libc++.so{,.1} $NYX/usr/lib
-ln -sf /tools/lib/libc++abi.so{,.1} $NYX/usr/lib
-ln -sf /tools/lib/libomp.so $NYX/usr/lib
 
 ln -sf /tools/lib32/libgcc_s.so{,.1} $NYX/usr/lib32
-ln -sf /tools/lib32/libstdc++.so{,.6} $NYX/usr/lib32
-ln -sf /tools/lib32/libc++.so{,.1} $NYX/usr/lib32
-ln -sf /tools/lib32/libc++abi.so{,.1} $NYX/usr/lib32
-ln -sf /tools/lib32/libomp.so $NYX/usr/lib32
+ln -sf /tools/lib32/libstdc++.{a,so{,.6}} $NYX/usr/lib32
 
 mkdir -pv $NYX/etc
 ln -sv /proc/self/mounts $NYX/etc/mtab
