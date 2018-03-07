@@ -92,7 +92,7 @@ of LFS installations.
 * Copy sources and ports into right places (those are the files you prepared earlier).
 
 		# cp -Rv nyx/sources/* /var/cache/scratchpkg/sources
-		# cp -Rv ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
+		# cp -Rv nyx/ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
 
 * Installing base system. (a baseinstall script is provided by scratchpkg)
 	
