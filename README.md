@@ -8,9 +8,9 @@ of LFS installations.
 
 * Clone these 3 needed repositories.
 
-		git clone https://github.com/emmett1/scratchpkg # package manager which will be used with Nyx
-		git clone https://github.com/emmett1/ports      # ports (package's build scripts)
-		git clone https://github.com/emmett1/nyx        # this repo, toolchain scripts and etc
+		git clone https://github.com/emmett1/scratchpkg   # package manager which will be used with Nyx
+		git clone https://github.com/emmett1/ports        # ports (package's build scripts)
+		git clone https://github.com/emmett1/nyx          # this repo, toolchain scripts and etc
 
 *Note: The toolchain must be built as an unprivileged user just like stated in the LFS book. Make sure that this user has also the sudo rights*
 
@@ -79,7 +79,7 @@ of LFS installations.
 		
 *Note: Now you are in the chroot environment, any command you run is executed the final, definitve Nyx system*
 
-* Install the package manager the "dirty way" in order to install the base system. Later on, scratchpkg will be installed again and will track all the installed packages. 
+* Install the package manager the "dirty way" in order to track all installed base system packages. Later on, scratchpkg will be reinstalled and will get tracked. 
 
 		# pushd nyx/scratchpkg
 		# ./INSTALL.sh
@@ -94,7 +94,7 @@ of LFS installations.
 		# cp -Rv nyx/sources/* /var/cache/scratchpkg/sources
 		# cp -Rv nyx/ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
 
-* Installing base system. (a baseinstall script is provided by scratchpkg)
+* Installing base system. (baseinstall is a script provided by scratchpkg)
 	
 		# baseinstall
 
@@ -113,7 +113,7 @@ of LFS installations.
 
 		./chroot /mnt/lfs
 
-* Make system bootable, install kernel. You can get the kernel at kernel.org or use the one that fetched earlier by `fetch-sources` script. (its recommended to placed kernel sources in /usr/src directory)
+* Make system bootable, install kernel. You can get the kernel at [kernel.org](https://www.kernel.org/) or use the one that fetched earlier by `fetch-sources` script. (its recommended to placed kernel sources in /usr/src directory)
 
 		# tar -xvf linux-<version>.tar.xz -C /usr/src
 		# cd /usr/src/linux-<version>
