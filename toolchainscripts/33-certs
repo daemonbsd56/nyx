@@ -141,7 +141,7 @@ EOF
    }
 } 2>&1 | tee ${LOG_DIR}/$0.log
 
-[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && echo "$0" >> /tools/$0 || exit $PIPESTATUS
 
 cd $SOURCE_DIR
 rm -fr certs

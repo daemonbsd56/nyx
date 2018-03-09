@@ -1,6 +1,10 @@
 #!/bin/bash
 
+[ -f /tools/log/$0.log ] && exit 0
+
 strip --strip-debug /tools/lib/*
 /usr/bin/strip --strip-unneeded /tools/{,s}bin/*
 rm -rf /tools/{,share}/{info,man,doc}
 find /tools/{lib,libexec} -name \*.la -delete
+
+echo "$0" >> /tools/$0 || exit $PIPESTATUS

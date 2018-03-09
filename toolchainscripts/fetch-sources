@@ -42,25 +42,35 @@ http://zlib.net/zlib-${ZLIB_VER}.tar.xz
 https://www.nano-editor.org/dist/v${NANO_VER::3}/nano-${NANO_VER}.tar.xz
 )
 
-for i in ${src[@]}; do
-
-	tarballname=$(echo $i | rev | cut -d / -f 1 | rev)
-	WGETCMD="wget --passive-ftp --no-directories --tries=3 --waitretry=3 --output-document=$SOURCE_DIR/$tarballname.partial"
-	WGETRESUME="wget -c --passive-ftp --no-directories --tries=3 --waitretry=3 --output-document=$SOURCE_DIR/$tarballname.partial"
+fetchsource() {
 	
-	[ -d $SOURCE_DIR ] || mkdir -p $SOURCE_DIR
+	tarballname=$(echo $1 | rev | cut -d / -f 1 | rev)
+	WGETCMD="wget --passive-ftp --tries=3 --waitretry=3 --output-document=$2/$tarballname.partial"
+	WGETRESUME="-c"
 	
-	if [ -f $SOURCE_DIR/$tarballname ]; then
+	if [ -f $2/$tarballname ]; then
 		echo "Source file $tarballname found."
+		return 0
 	else
-		if [ -f $SOURCE_DIR/$tarballname.partial ]; then
+		if [ -f $2/$tarballname.partial ]; then
 			echo "Resuming $i."
-			$WGETRESUME $i && mv $SOURCE_DIR/$tarballname.partial $SOURCE_DIR/$tarballname || exit 1
+			$WGETCMD $WGETRESUME $1
 		else
 			echo "Downloading $i."
-			$WGETCMD $i && mv $SOURCE_DIR/$tarballname.partial $SOURCE_DIR/$tarballname || exit 1
+			$WGETCMD $1
 		fi
 	fi
+	
+	if [ $? = 0 ]; then
+		mv $2/$tarballname.partial $2/$tarballname
+	fi
+	
+}
+
+[ -d $SOURCE_DIR ] || mkdir -p $SOURCE_DIR
+
+for i in ${src[@]}; do
+	fetchsource $i $SOURCE_DIR
 done
 
 echo
