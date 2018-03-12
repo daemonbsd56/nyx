@@ -49,7 +49,8 @@ of LFS installations.
 
 		$ ./strap
 		$ popd
-   - `strap` script is resumeable. Re-run `./strap` command to resume where you left it.
+		
+   - `strap` script is resumeable. Re-run `./strap` script to resume where you left it.
    - Nano (text-editor) and wget (fetching tool) are installed during the toolchain and will be a valuable aid during 
     the next step in case the building of the proper final Nyx.
     
