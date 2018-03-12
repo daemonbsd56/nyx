@@ -49,6 +49,7 @@ of LFS installations.
 
 		$ ./strap
 		$ popd
+   - `strap` script is resumeable. Re-run `./strap` command to resume where you left it.
    - Nano (text-editor) and wget (fetching tool) are installed during the toolchain and will be a valuable aid during 
     the next step in case the building of the proper final Nyx.
     
@@ -94,13 +95,9 @@ of LFS installations.
 		# cp -Rv nyx/sources/* /var/cache/scratchpkg/sources
 		# cp -Rv nyx/ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
 
-* Installing base system. (baseinstall is a script provided by scratchpkg)
+* Installing base system (baseinstall is a script provided by scratchpkg). You can replace `lfs-bootscripts` to `rc-init` for init choice. Currently rc-init (bsd-init style) and lfs-bootscripts (init provided by LFS) is available. Run `scratch -s rcinit` to search available daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
 	
-		# baseinstall
-
-* Install an init to system. Currently rc-init (bsd-init style) and lfs-bootscripts (init provided by LFS) is available. Run `scratch -s rcinit` to search available daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
-
-		# scratch -i -p rc-init
+		# baseinstall --init lfs-bootscripts
 
 * Exit chroot and remove temporary toolchain. (removing the temporary toolchain is considered mandatory because next chroot script will depend on it. You may naturally still tar it into a file and copy it somewhere else).
 
