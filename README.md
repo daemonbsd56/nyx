@@ -77,7 +77,7 @@ of LFS installations.
 
 * Make the necessary directories inside the nyx installation and then chroot in it (executed by a script).
 
-		# ./chroot-nyx
+		# ./nyx/chroot-nyx
 		
 *Note: Now you are in the chroot environment, any command you run is executed the final, definitve Nyx system*
 
@@ -98,7 +98,7 @@ of LFS installations.
 
 * Installing base system (baseinstall is a script provided by scratchpkg). You can replace `lfs-bootscripts` to `rc-init` for init choice. Currently rc-init (bsd-init style) and lfs-bootscripts (init provided by LFS) is available. Run `scratch -s rcinit` to search available daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
 	
-		# baseinstall --init lfs-bootscripts
+		# baseinstall --init rc-init
 
 * Exit chroot and remove temporary toolchain. (removing the temporary toolchain is considered mandatory because next chroot script will depend on it. You may naturally still tar it into a file and copy it somewhere else).
 
@@ -109,7 +109,7 @@ of LFS installations.
 
 * Chroot in the final Nyx system by running the 'chroot' script.
 
-		./chroot /mnt/lfs
+		./nyx/chroot /mnt/lfs
 
 * Make system bootable, install kernel. You can get the kernel at [kernel.org](https://www.kernel.org/) or use the one that fetched earlier by `fetch-sources` script. (its recommended to placed kernel sources in /usr/src directory)
 
