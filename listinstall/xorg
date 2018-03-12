@@ -1,11 +1,13 @@
 util-macros
-xorgproto
-libxau
-libxdmcp
 libffi
 openssl
 python2
 python3
+ninja
+meson
+xorgproto
+libxau
+libxdmcp
 xcb-proto
 libxcb
 which
@@ -121,8 +123,6 @@ font-xfree86-type1
 xkeyboard-config
 libevdev
 mtdev
-ninja
-meson
 libinput
 nettle
 pixman
