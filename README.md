@@ -151,3 +151,14 @@ of LFS installations.
 *Note: At this stage you may reboot and  test your Nyx or you can continue and install needed packages like dhcpcd for networking, Xorg for gui and etc.*
 
 *Note: In the temporary nyx directory copied earlier, there is  a directory 'listinstall' which contains a  package list to install. This one is already sorted by dependency and is really handy. You can install it by using `listinstall` script which is provided by scratchpkg. Example: 'listinstall /nyx/listinstall/xorg'*
+
+## Screenshot
+#### xfce4
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-132211_1360x768_scrot.png)
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-132340_1360x768_scrot.png)
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-133743_1360x768_scrot.png)
+
+#### lxde
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-133549_1360x768_scrot.png)
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-133601_1360x768_scrot.png)
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-133520_1360x768_scrot.png)
