@@ -142,7 +142,7 @@ of LFS installations.
 		# vim /etc/hostname
 		# vim /etc/hosts
 		# vim /etc/rc.conf
-		# ln -svf /usr/share/zoneinfo/Asia/Kuala_Lumpur
+		# ln -svf /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 		# useradd -m -G users,wheel,video,audio -s /bin/bash emmett
 		# passwd emmett
 		
