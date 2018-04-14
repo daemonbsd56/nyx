@@ -160,3 +160,7 @@ of LFS installations.
 ![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-133549_1360x768_scrot.png)
 ![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-133601_1360x768_scrot.png)
 ![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-03-12-133520_1360x768_scrot.png)
+
+#### kde5
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-04-14-223158_1600x900_scrot.png)
+![image](https://github.com/emmett1/nyx/blob/master/screenshot/2018-04-14-223353_1600x900_scrot.png)
