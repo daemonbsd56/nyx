@@ -96,9 +96,9 @@ of LFS installations.
 		# cp -Rv nyx/sources/* /var/cache/scratchpkg/sources
 		# cp -Rv nyx/ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
 
-* Installing base system (baseinstall is a script provided by scratchpkg). You can replace `lfs-bootscripts` to `rc-init` for init choice. Currently rc-init (bsd-init style) and lfs-bootscripts (init provided by LFS) is available. Run `scratch -s rcinit` to search available daemon for rc-init, `scratch -s lfsbootscripts` to search available daemon for lfs-bootscripts.
+* Installing base system (baseinstall is a script provided by scratchpkg). By default, baseinstall script will install rc-init (my custom bsd/Slackware style init) but you can replace the init with `lfs-bootscripts` (sysvinit provided by LFS). Run `scratch -s lfsbootscripts` to search available daemon if using `lfs-bootscripts`.
 	
-		# baseinstall --init rc-init
+		# baseinstall
 
 * Exit chroot and remove temporary toolchain. (removing the temporary toolchain is considered mandatory because next chroot script will depend on it. You may naturally still tar it into a file and copy it somewhere else).
 
@@ -141,14 +141,20 @@ of LFS installations.
 		# passwd
 		# vim /etc/hostname
 		# vim /etc/hosts
-		# vim /etc/rc.conf
 		# ln -svf /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 		# useradd -m -G users,wheel,video,audio -s /bin/bash emmett
 		# passwd emmett
 		
-*Note: At this stage you may reboot and  test your Nyx or you can continue and install needed packages like dhcpcd for networking, Xorg for gui and etc.*
+* Optionally edit configuration file that exist in `/etc/conf.d/` directory to suit your need.
+		
+* At this stage you may reboot and test your Nyx or you can continue and install needed packages like dhcpcd for networking, Xorg for gui and etc.
 
-*Note: In the temporary nyx directory copied earlier, there is  a directory 'listinstall' which contains a  package list to install. This one is already sorted by dependency and is really handy. You can install it by using `listinstall` script which is provided by scratchpkg. Example: 'listinstall /nyx/listinstall/xorg'*
+* Some basic tips to use the package manager (scratchpkg):
+	- `scratch -s <pattern>` - to find the available package in repository
+	- `scratch -i -p <package1> <package2> <...>` - to install packages, ex. 'scratch -i -p xorg-meta plasma-meta networkmanager'
+	- its recommended to install 'xorg-meta' before install other desktop environment.
+	- for now in the repo has plasma, xfce4, lxde for the desktop environment, some window manager like dwm, openbox, fluxbox and twm, and some applications for daily use.
+ 
 
 ## Screenshot
 #### xfce4
