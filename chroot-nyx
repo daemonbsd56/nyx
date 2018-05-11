@@ -1,14 +1,14 @@
 #!/bin/bash
 
 if [ "$UID" != "0" ]; then
-	msgerr "Chroot need root access!"
+	echo "Chroot need root access!"
 	exit 1
 fi
 
 NYX=/mnt/lfs
 
 if [ ! -d $NYX ]; then
-	msgerr "Dir '$NYX' not exist"
+	echo "Dir '$NYX' not exist"
 	exit 1
 fi
 
