@@ -26,7 +26,11 @@ mount -vt sysfs sysfs $LFS/sys
 mount -vt tmpfs tmpfs $LFS/run
 
 if [ -h $LFS/dev/shm ]; then
-  mkdir -pv $LFS/$(readlink $LFS/dev/shm)
+	mkdir -pv $LFS/$(readlink $LFS/dev/shm)
+fi
+
+if [ -e /etc/resolve.conf ]; then
+	cp -L /etc/resolve.conf $LFS/etc/
 fi
 
 chroot "$LFS" /usr/bin/env -i \
