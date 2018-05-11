@@ -1,21 +1,30 @@
 #!/bin/bash -e
 
-. $(dirname $0)/build-properties
-. $(dirname $0)/pkgversion
+source $(dirname $0)/functions
+source $(dirname $0)/pkgversion
 
-PROGRAM="glibc-${GLIBC_VER}"
-TARBALL="$PROGRAM.tar.*"
+filename=$(echo $0 | rev | cut -d / -f1 | rev)
 
-cd $SOURCE_DIR
-if [ "$TARBALL" != "" ]; then
-	DIRECTORY=`tar -tf $TARBALL | cut -d/ -f1 | uniq`
-	rm -rf $DIRECTORY || true
-	tar xf $TARBALL
-	cd $DIRECTORY
-fi
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-$(dirname $0)/src}
+
+NAME=glibc
+VERSION=${GLIBC_VER}
+
+fetch "http://ftp.gnu.org/gnu/glibc/glibc-$GLIBC_VER.tar.xz" $SRC
+
+[ "$1" = "fetch" ] && exit 0
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC
+
+tar xf $SRC/$tarballname -C $TMP
 
 { time \
    {
+
+	cd $TMP/$NAME-$VERSION
 
 	mkdir -v build
 	cd       build
@@ -31,17 +40,9 @@ fi
 	make
 	make install
 	
-	echo 'int main(){}' > dummy.c
-	$LFS_TGT-gcc dummy.c
-	readelf -l a.out | grep ': /tools'
-	rm -v dummy.c a.out
-          
-   }
-} 2>&1 | tee ${LOG_DIR}/$0.log
+	}
+} 2>&1 | tee $LOG/$filename.log
+    
+[ $PIPESTATUS = 0 ] && echo "$NAME-$VERSION" > /tools/$filename || exit $PIPESTATUS
 
-[ $PIPESTATUS = 0 ] && echo "$PROGRAM" >> /tools/$0 || exit $PIPESTATUS
-
-cd $SOURCE_DIR
-if [ "$TARBALL" != "" ]; then
-	rm -rf $DIRECTORY
-fi
+rm -fr $TMP
