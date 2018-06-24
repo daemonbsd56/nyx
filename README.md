@@ -31,7 +31,7 @@ of LFS installations.
 * Prepare the temporary toolchain directory (change `emmett` to your user name! ).
 
 		$ sudo mkdir -pv /mnt/lfs/tools
-		$ sudo chown -Rv emmett:emmett /mnt/lfs
+		$ sudo chown -Rv $USER:$USER /mnt/lfs
 		$ sudo ln -sv /mnt/lfs/tools /
 
 #### Build the toolchain
@@ -40,19 +40,20 @@ of LFS installations.
 
 		$ pushd nyx/toolchainscripts
 		
-* Fetch needed sources by running the script. 
+* Fetch each needed sources and building the toolchain by running the `bootstrap` script.
+    - Run `./bootstrap fetch` to fetch only sources.
+    - Append TMP=(path) to change build directory (default=/tmp/build).
+    - Append LOG=(path) to change build log directory (default=`pwd`/log).
+    - Append SRC=(path) to change fetched sources directory (default=`pwd`/src).
+    - `bootstrap` script is resumeable. Re-run `./bootstrap` script to resume where you left it.
+    - Nano (text-editor) and wget (fetching tool) are installed during the toolchain and will be a valuable aid during 
+      the next step in case the building of the proper final Nyx.
+    - By default this script will compile using -j6 MAKEFLAGS, you can change it in `functions` file.
 
-		$ ./fetch-sources
-		
-   - it will download the latest development set of the SVN/LFS book		
-* Start building the toolchain by running the script.
+		$ ./bootstrap
 
-		$ ./strap
 		$ popd
 		
-   - `strap` script is resumeable. Re-run `./strap` script to resume where you left it.
-   - Nano (text-editor) and wget (fetching tool) are installed during the toolchain and will be a valuable aid during 
-    the next step in case the building of the proper final Nyx.
     
 * Change toolchain's permission to root.
 
@@ -67,7 +68,12 @@ of LFS installations.
 * Create temporary directory in Nyx system to store needed files later after entering chroot.
 
 		$ sudo mkdir /mnt/lfs/nyx
-		$ sudo cp -Rv scratchpkg ports nyx/{sources,listinstall} /mnt/lfs/nyx
+		$ sudo cp -Rv scratchpkg ports nyx/baseinstall /mnt/lfs/nyx
+
+* Optionally copy sources fetched by toolchain script to Nyx system.
+
+		$ sudo cp -Rv nyx/toolchainscripts/src /mnt/lfs/nyx
+
 
 #### Building the final Nyx system
 
@@ -91,14 +97,17 @@ of LFS installations.
 
 		# nano /etc/scratchpkg.conf
 
-* Copy sources and ports into right places (those are the files you prepared earlier).
+* If you copy sources fetched by the toolchain before, run this to copy it it to the right places.
 
-		# cp -Rv nyx/sources/* /var/cache/scratchpkg/sources
+		# cp -Rv nyx/src/* /var/cache/scratchpkg/sources
+
+* Copy ports into right places (those are the files you prepared earlier).
+
 		# cp -Rv nyx/ports/{core,extra,git,lxde,wip,xfce4,xorg} /usr/ports
 
 * Installing base system (baseinstall is a script provided by scratchpkg). By default, baseinstall script will install rc-init (my custom bsd/Slackware style init) but you can replace the init with `lfs-bootscripts` (sysvinit provided by LFS). Run `scratch -s lfsbootscripts` to search available daemon if using `lfs-bootscripts`.
 	
-		# baseinstall
+		# ./nyx/baseinstall
 
 * Exit chroot and remove temporary toolchain. (removing the temporary toolchain is considered mandatory because next chroot script will depend on it. You may naturally still tar it into a file and copy it somewhere else).
 
@@ -150,8 +159,8 @@ of LFS installations.
 * At this stage you may reboot and test your Nyx or you can continue and install needed packages like dhcpcd for networking, Xorg for gui and etc.
 
 * Some basic tips to use the package manager (scratchpkg):
-	- `scratch -s <pattern>` - to find the available package in repository
-	- `scratch -i -p <package1> <package2> <...>` - to install packages, ex. 'scratch -i -p xorg-meta plasma-meta networkmanager'
+	- `scratch search <pattern>` - to find the available package in repository
+	- `scratch install <package1> <package2> <...>` - to install packages, ex. 'scratch install xorg-meta plasma-meta networkmanager'
 	- its recommended to install 'xorg-meta' before install other desktop environment.
 	- for now in the repo has plasma, xfce4, lxde for the desktop environment, some window manager like dwm, openbox, fluxbox and twm, and some applications for daily use.
  

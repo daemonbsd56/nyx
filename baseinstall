@@ -126,7 +126,7 @@ for i in ${PKG[@]}; do
 				rm /usr/lib/{libncurses.so,libncursesw.so.6}
 				;;
 			gcc)
-				scratch -id -p $i || exit 1
+				scratch build -d $i || exit 1
 				rm -f /usr/lib/{libgcc_s.so{,.1},libstdc++.{a,so{,.6}}}
 				scratch install -d $i || exit 1
 				;;
@@ -137,13 +137,10 @@ for i in ${PKG[@]}; do
 				;;
 			perl)
 				echo "127.0.0.1 localhost $(hostname)" > /etc/hosts
-				scratch install -d $i || exit 1
+				scratch build -d $i || exit 1
 				rm /etc/hosts
 				rm /usr/bin/perl
 				scratch install -d $i || exit 1
-				;;
-			base-meta)
-				scratch install $i || exit 1
 				;;
 			*)
 				scratch install -d $i || exit 1
