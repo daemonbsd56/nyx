@@ -23,11 +23,24 @@ install -dv -m 0750 $NYX/root
 install -dv -m 1777 $NYX/tmp $NYX/var/tmp
 
 mkdir -pv $NYX/bin
-mkdir -pv $NYX/usr/{bin,lib}
+mkdir -pv $NYX/usr/{bin,lib,include,lib/pkgconfig}
 ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} $NYX/bin
-ln -sv /tools/bin/{install,perl} $NYX/usr/bin
+ln -sv /tools/bin/{env,install,perl} $NYX/usr/bin
 ln -sv /tools/lib/libgcc_s.so{,.1} $NYX/usr/lib
 ln -sv /tools/lib/libstdc++.{a,so{,.6}} $NYX/usr/lib
+for lib in blkid lzma mount uuid
+do
+    ln -sv /tools/lib/lib$lib.so* $NYX/usr/lib
+done
+ln -sv /tools/include/blkid    $NYX/usr/include
+ln -sv /tools/include/libmount $NYX/usr/include
+ln -sv /tools/include/uuid     $NYX/usr/include
+install -vdm755 $NYX/usr/lib/pkgconfig
+for pc in blkid mount uuid
+do
+    sed 's@tools@usr@g' /tools/lib/pkgconfig/${pc}.pc \
+        > $NYX/usr/lib/pkgconfig/${pc}.pc
+done
 ln -sv bash $NYX/bin/sh
 
 mkdir -pv $NYX/etc
@@ -81,20 +94,12 @@ if [ -h $NYX/dev/shm ]; then
   mkdir -pv $NYX/$(readlink $NYX/dev/shm)
 fi
 
-if [ -d $NYX/tools ]; then
-	chroot "$NYX" /tools/bin/env -i \
-	HOME=/root \
-	TERM="$TERM" \
-	PS1='(nyx chroot) \u:\w\$ ' \
-	PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
-	/tools/bin/bash --login +h
-else
-	chroot "$NYX" /usr/bin/env -i \
-	HOME=/root \
-	TERM="$TERM" \
-	PS1='(nyx chroot) \u:\w\$ ' \
-	PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login
-fi
+chroot "$NYX" /tools/bin/env -i \
+HOME=/root \
+TERM="$TERM" \
+PS1='(nyx chroot) \u:\w\$ ' \
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+/tools/bin/bash --login +h
 
 popd
 echo chroot exited

@@ -142,6 +142,23 @@ for i in ${PKG[@]}; do
 				rm /usr/bin/perl
 				scratch install -d $i || exit 1
 				;;
+			xz)
+				rm /usr/lib/liblzma.so
+				scratch install -d $i || exit 1
+				;;
+			util-linux)
+				scratch build -d $i || exit 1
+				for r in blkid libmount uuid; do
+					rm /usr/include/$r || true
+				done
+				for lib in blkid mount uuid; do
+					rm /usr/lib/lib$lib.so || true
+				done
+				for pc in blkid mount uuid; do
+					rm /usr/lib/pkgconfig/${pc}.pc || true
+				done
+				scratch install -d $i || exit 1
+				;;
 			*)
 				scratch install -d $i || exit 1
 				;;
