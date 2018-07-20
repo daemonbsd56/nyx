@@ -143,7 +143,7 @@ for i in ${PKG[@]}; do
 				scratch install -d $i || exit 1
 				;;
 			xz)
-				rm /usr/lib/liblzma.so
+				rm /usr/lib/liblzma.so || true
 				scratch install -d $i || exit 1
 				;;
 			util-linux)

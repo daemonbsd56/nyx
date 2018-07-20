@@ -28,7 +28,7 @@ of LFS installations.
 		
  		
 
-* Prepare the temporary toolchain directory (change `emmett` to your user name! ).
+* Prepare the temporary toolchain directory.
 
 		$ sudo mkdir -pv /mnt/lfs/tools
 		$ sudo chown -Rv $USER:$USER /mnt/lfs

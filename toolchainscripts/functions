@@ -1,6 +1,7 @@
 # functions and variable loaded by scripts
 
-export MAKEFLAGS="-j6"
+JOBS=$(nproc)
+export MAKEFLAGS="-j${JOBS}"
 export LFS="/mnt/lfs"
 export LFS_TGT=$(uname -m)-lfs-linux-gnu
 
