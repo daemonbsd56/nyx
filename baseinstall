@@ -90,7 +90,7 @@ adjustingtoolchain() {
 		-e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
 		-e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' >      \
 		`dirname $(gcc --print-libgcc-file-name)`/specs
-		
+
 	echo 'int main(){}' > dummy.c
 	cc dummy.c -v -Wl,--verbose &> dummy.log
 	readelf -l a.out | grep ': /lib'
@@ -102,7 +102,7 @@ adjustingtoolchain() {
 	grep found dummy.log
 	rm -v dummy.c a.out dummy.log
 	sleep 5
-}	
+}
 
 for i in ${PKG[@]}; do
 	if [[ -d "$INDEX_DIR/$i" ]]; then
@@ -143,7 +143,7 @@ for i in ${PKG[@]}; do
 				scratch install -d $i || exit 1
 				;;
 			xz)
-				rm /usr/lib/liblzma.so || true
+				rm /usr/lib/liblzma.so
 				scratch install -d $i || exit 1
 				;;
 			util-linux)

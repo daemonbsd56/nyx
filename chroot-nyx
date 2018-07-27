@@ -28,16 +28,14 @@ ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} $NYX/bin
 ln -sv /tools/bin/{env,install,perl} $NYX/usr/bin
 ln -sv /tools/lib/libgcc_s.so{,.1} $NYX/usr/lib
 ln -sv /tools/lib/libstdc++.{a,so{,.6}} $NYX/usr/lib
-for lib in blkid lzma mount uuid
-do
+for lib in blkid lzma mount uuid; do
     ln -sv /tools/lib/lib$lib.so* $NYX/usr/lib
 done
 ln -sv /tools/include/blkid    $NYX/usr/include
 ln -sv /tools/include/libmount $NYX/usr/include
 ln -sv /tools/include/uuid     $NYX/usr/include
 install -vdm755 $NYX/usr/lib/pkgconfig
-for pc in blkid mount uuid
-do
+for pc in blkid mount uuid; do
     sed 's@tools@usr@g' /tools/lib/pkgconfig/${pc}.pc \
         > $NYX/usr/lib/pkgconfig/${pc}.pc
 done
