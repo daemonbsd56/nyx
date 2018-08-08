@@ -70,7 +70,7 @@ filesystem
 base-meta
 )
 
-extrapkg="runit nyx-runit scratchpkg"
+extrapkg="runit nyx-runit dhcpcd"
 
 adjustingtoolchain() {
 	echo "Adjusting toolchain"
@@ -160,5 +160,6 @@ for i in ${PKG[@]}; do
 done
 
 scratch install --no-confirm $extrapkg || exit 1
+scratch install --no-confirm scratchpkg -c || exit 1
 
 exit 0

@@ -10,6 +10,12 @@ NYX=/mnt/lfs
 if [ ! -d $NYX ]; then
 	echo "Dir '$NYX' not exist"
 	exit 1
+elif [ ! -L /tools ]; then
+	echo "Please create symlink '/tools' to '$NYX/tools'"
+	exit 1
+elif [ $(readlink /tools) != "$NYX/tools/" ]; then
+	echo "'/tools' not symlink to '$NYX/tools'"
+	exit 1
 fi
 
 ### CREATE DIRECTORY
