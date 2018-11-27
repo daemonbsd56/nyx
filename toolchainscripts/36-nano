@@ -12,7 +12,7 @@ SRC=${SRC:-$(dirname $0)/src}
 NAME=nano
 VERSION=${NANO_VER}
 
-fetch "https://www.nano-editor.org/dist/v${NANO_VER::3}/nano-$NANO_VER.tar.xz" $SRC
+fetch "https://www.nano-editor.org/dist/v3/nano-$NANO_VER.tar.xz" $SRC
 
 [ "$1" = "fetch" ] && exit 0
 

@@ -12,7 +12,7 @@ SRC=${SRC:-$(dirname $0)/src}
 NAME=openssl
 VERSION=${OPENSSL_VER}
 
-fetch "https://openssl.org/source/openssl-1.0.2o.tar.gz" $SRC
+fetch "https://openssl.org/source/openssl-$OPENSSL_VER.tar.gz" $SRC
 
 [ "$1" = "fetch" ] && exit 0
 

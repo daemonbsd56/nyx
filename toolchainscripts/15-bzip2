@@ -12,7 +12,8 @@ SRC=${SRC:-$(dirname $0)/src}
 NAME=bzip2
 VERSION=${BZIP_VER}
 
-fetch "http://www.bzip.org/$BZIP_VER/bzip2-$BZIP_VER.tar.gz" $SRC
+fetch "http://anduin.linuxfromscratch.org/LFS/bzip2-$BZIP_VER.tar.gz" $SRC
+#fetch "http://www.bzip.org/$BZIP_VER/bzip2-$BZIP_VER.tar.gz" $SRC
 
 [ "$1" = "fetch" ] && exit 0
 
