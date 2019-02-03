@@ -36,7 +36,7 @@ tar xf $SRC/$tarballname -C $TMP
 				--enable-overwrite
 	make
 	make install
-	
+	ln -s libncursesw.so /tools/lib/libncurses.so
 	}
 } 2>&1 | tee $LOG/$filename.log
     
